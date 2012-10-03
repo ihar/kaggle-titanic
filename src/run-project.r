@@ -1,7 +1,20 @@
 library('ProjectTemplate')
 load.project()
 
-for (dataset in project.info$data) {
-  message(paste('Showing top 5 rows of', dataset))
-  print(head(get(dataset)))
-}
+# Выживаемость в зависимости от пола пассажира
+qplot(factor(survived), data = train, geom="bar", fill = factor(sex))
+table(train$sex, train$survived)
+# На странице конкурса есть бенчмарк, который использует большое количество
+# выживших среди женщин и не выживших среди мужчин
+# женщина? - возвращается 1, мужчина? - возвращается 0.
+
+# Выживаемость по возрасту в начальных данных
+qplot(factor(age), data = train[complete.cases(train),], geom="bar", fill = factor(survived))
+# Выживаемость по возрасту после замены отсутствующих данных медианными значениями
+qplot(factor(age), data = clean.train, geom="bar", fill = factor(survived))
+# Большой пик, его надо сгладить, распределяя отсутствующие данные по возрастам посложнее
+
+# Выживаемость по классу пассажира
+qplot(factor(pclass), data = train[complete.cases(train),], geom="bar", fill = factor(survived))
+# Пассажиры третьего класса выживают меньше. Чем меньше класс пассажира, тем больше выживаемость
+qplot(factor(survived), data = train[complete.cases(train),], geom="bar", fill = factor(pclass))
