@@ -4,7 +4,7 @@
 # Number of ticket is  also meaningless here.
 # Cabin seems to be important but I plan to use it later
 # (A is upper desk, G is lower; upper desk is better for survival)
-drop.columns <- c("name", "Family", "Name", "ticket", "cabin")
+drop.columns <- c("name", "ticket", "cabin")
 clean.train <- train[, !(names(train) %in% drop.columns)]
 clean.test <- test[, !(names(test) %in% drop.columns)]
 
