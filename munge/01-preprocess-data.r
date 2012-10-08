@@ -30,8 +30,8 @@ set.seed(4)
 ctest.median.age <- median(test$age, na.rm = T)
 ctrain.median.age <- median(train$age, na.rm = T)
 
-ctest.rnorm.ages <- floor(rnorm(length(which(is.na(test$age))), mean = ctest.median.age))
-ctrain.rnorm.ages <- floor(rnorm(length(which(is.na(train$age))), mean = ctrain.median.age))
+ctest.rnorm.ages <- floor(rnorm(length(which(is.na(test$age))), mean = ctest.median.age, sd = ctest.median.age))
+ctrain.rnorm.ages <- floor(rnorm(length(which(is.na(train$age))), mean = ctrain.median.age, sd = ctrain.median.age))
 
 clean.train$age[is.na(clean.train$age)] <- ctrain.rnorm.ages
 clean.test$age[is.na(clean.test$age)] <- ctest.rnorm.ages

@@ -7,4 +7,4 @@ rf.model <- randomForest(x = clean.train[,-1],
                          ntree = 10000, 
                          do.trace = T)
 rf.predictions <- predict(rf.model, clean.test)
-write((0:1)[rf.predictions], file = "rf02.predictions.csv", ncolumns = 1) 
+write((0:1)[rf.predictions], file = "rf03.predictions.csv", ncolumns = 1) 
