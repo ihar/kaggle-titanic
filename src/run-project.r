@@ -28,3 +28,6 @@ cabin.names <- sapply(train$cabin[cabin.nums], substr, start = 1, stop = 1)
 attr(cabin.names, "names") <- NULL
 cabin.names <- as.factor(cabin.names)
 qplot(cabin.names, data = train[cabin.nums,], geom="bar", fill = factor(survived))
+
+# Выживаемость по стоимости билета
+qplot(train$fare, data = train, geom="bar", fill = factor(survived))
