@@ -4,7 +4,7 @@
 # Number of ticket is  also meaningless here.
 # Cabin seems to be important but I plan to use it later
 # (A is upper desk, G is lower; upper desk is better for survival)
-drop.columns <- c("name", "Family", "Name", "ticket", "cabin")
+drop.columns <- c("name", "ticket", "cabin")
 clean.train <- train[, !(names(train) %in% drop.columns)]
 clean.test <- test[, !(names(test) %in% drop.columns)]
 
@@ -25,10 +25,16 @@ clean.train$embarked[clean.train$embarked == ""] <- ctrain.embarked.most.frequen
 clean.test$embarked[clean.test$embarked == ""] <- ctest.embarked.most.frequent
 
 # Missing values in Age
+# Change it to values from (uniform or normal) distribution
+set.seed(4)
 ctest.median.age <- median(test$age, na.rm = T)
 ctrain.median.age <- median(train$age, na.rm = T)
-clean.train$age[is.na(clean.train$age)] <- ctrain.median.age
-clean.test$age[is.na(clean.test$age)] <- ctest.median.age
+
+ctest.rnorm.ages <- floor(rnorm(length(which(is.na(test$age))), mean = ctest.median.age, sd = ctest.median.age))
+ctrain.rnorm.ages <- floor(rnorm(length(which(is.na(train$age))), mean = ctrain.median.age, sd = ctrain.median.age))
+
+clean.train$age[is.na(clean.train$age)] <- ctrain.rnorm.ages
+clean.test$age[is.na(clean.test$age)] <- ctest.rnorm.ages
 
 # Convert factors to integers
 clean.train$sex <- as.integer(factor(clean.train$sex))
